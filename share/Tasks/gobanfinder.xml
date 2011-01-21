@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Task>
+<!-- List of components -->
+	<Components>
+		<Source type="Sequence" thread="Thread1" group="s1">
+			
+			<directory>/home/kaji/workspace/goban/</directory>
+			<pattern>*.bmp</pattern>
+			<triggered>true</triggered>
+			
+		</Source>
+		
+		<Keyboard type="Keyboard" thread="Thread1" group="s1">
+		
+			<keys>d</keys>
+					
+		</Keyboard>
+			
+		<Processor type="cvGobanFinder_Processor" thread="Thread1" group="s1">
+		
+				
+		
+		</Processor>
+		
+		<Window type="CvWindow" thread="Thread1" group="s1">
+			<title>GobanFinder</title>
+		</Window>
+		
+	</Components>
+	
+	<!-- Threads of execution -->
+	<Executors>
+		
+		<Thread1 type="continuous">
+			<main_component>Source</main_component>
+		</Thread1>
+		
+	</Executors>
+	<!-- List of Events -->
+	<Events>
+	
+		<Event source="Source.newImage" destination="Processor.TODO"/>
+		<Event source="Processor.processed" destination="Window.onNewImage"/>
+		<Event source="Keyboard.d_Pressed" destination="Source.onTrigger"/>		
+		
+	</Events>
+
+	<DataStreams>
+	
+		<Source>
+		
+			<out_img type="out" group="Con1"/>
+			
+		</Source>
+	
+		<Processor>
+			<img_in type="in" group="Con1"/>
+			<img_out type="out" group="Con2"	 
+			
+		</Processor>
+		
+		<Window>
+		
+		<in_img  type="in" group="Con2"/>
+		
+		</Window>
+		
+	</DataStreams>
+
+</Task>
+ 
+ 
