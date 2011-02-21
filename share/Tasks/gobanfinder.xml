@@ -55,7 +55,7 @@
 	
 		<Processor>
 			<img_in type="in" group="Con1"/>
-			<img_out type="out" group="Con2"	 
+			<img_out type="out" group="Con2"/>	 
 			
 		</Processor>
 		

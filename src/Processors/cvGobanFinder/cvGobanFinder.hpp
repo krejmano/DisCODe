@@ -1,31 +1,40 @@
 /*!
- * \file
- * \brief
+ * \file cvGobanFinder
+ * \brief Goban finder.
  */
 
 #ifndef CVGOBANFINDER_PROCESSOR_HPP_
 #define CVGOBANFINDER_PROCESSOR_HPP_
 
+#include <cv.h>
+#include <boost/shared_ptr.hpp>
 #include "Component_Aux.hpp"
-#include "Component.hpp"
 #include "Panel_Empty.hpp"
-#include "DataStream.hpp"
-#include "Props.hpp"
+#include "Objects3D/GobanMarkers.hpp"
+#include "Drawable.hpp"
+#include "Timer.hpp"
+
 
 namespace Processors {
 namespace cvGobanFinder {
+
 
 /*!
  * \brief cvGobanFinder properties
  */
 struct cvGobanFinder_Props: public Base::Props
 {
+	cv::Size size;
+	int height;
 
 	/*!
 	 * \copydoc Base::Props::load
 	 */
 	void load(const ptree & pt)
 	{
+
+		LOG(LTRACE) << "cvFindGoban::load()\n";
+		//size= pt.get<cv::Size>("size");
 
 	}
 
@@ -34,6 +43,7 @@ struct cvGobanFinder_Props: public Base::Props
 	 */
 	void save(ptree & pt)
 	{
+		LOG(LTRACE) << "cvFindGoban::load()\n";
 
 	}
 
@@ -94,7 +104,30 @@ protected:
 	/// Properties
 	cvGobanFinder_Props props;
 
+private:
+
+	void	onNewImage();
+
+	Base::EventHandler <cvGobanFinder_Processor> h_onNewImage;
+
+
+	Base::DataStreamIn <cv::Mat> in_img;
+	//img stream
+
+	Base::DataStreamOut <Types::Objects3D::GobanMarkers> gobanOut;
+
+	Base::Event *gobanFound;
+
+	Base::Event *gobanNotFound;
+
+	cv::Mat junctions;
+
+	Common::Timer timer;
+
+boost::shared_ptr<Types::Objects3D::GobanMarkers> goban;
+
 };
+
 
 }//: namespace cvGobanFinder
 }//: namespace Processors

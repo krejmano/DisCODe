@@ -14,6 +14,10 @@ ADD_PROCESSOR(CvPixelOperator)
 ADD_PROCESSOR(ExecTimer)
 ADD_PROCESSOR(Stereo)
 
+#goban
+
+ADD_PROCESSOR(cvGobanFinder)
+
 # Task specific processors
 ADD_PROCESSOR(MS_Sign_LUT)
 ADD_PROCESSOR(MS_Sign_Decide)
